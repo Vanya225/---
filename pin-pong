@@ -1,0 +1,33 @@
+from pygame import *
+
+#foti
+img_back = "foon.jpg" #fon
+img_ball = "ball.webp" #ball
+
+win_width = 700
+win_height = 500
+window = display.set_mode((win_width, win_height))
+background = transform.scale(image.load(img_back), (win_width, win_height))
+clock = time.Clock()
+FPS = 60
+game = True
+
+while game:
+    for e in event.get():
+        if e.type == QUIT:
+            game = False
+    window.blit(background,(0,0))
+
+    display.update()
+    clock.tick(FPS)
+
+Ball = Enemy(img_ball, 5, win_height - 100, 80, 100, 10)
+
+class Player(GameSprite):
+  #метод для управления спрайтом стрелками клавиатуры
+   def update(self):
+       keys = key.get_pressed()
+       if keys[K_LEFT] and self.rect.x > 5:
+           self.rect.x -= self.speed
+       if keys[K_RIGHT] and self.rect.x < win_width - 80:
+           self.rect.x += self.speed
